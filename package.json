@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@okta/okta-react": "^1.1.4",
+    "@okta/okta-signin-widget": "^2.14.0",
     "axios": "^0.16.2",
     "date-fns": "1.29.0",
     "debug": "3.1.0",
