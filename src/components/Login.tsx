@@ -9,8 +9,10 @@ import colors from 'common/colors';
 import { googleLogin, facebookLogin } from 'services/login';
 import FacebookLogin from 'components/LoginButtons/FacebookLogin';
 import GoogleLogin from 'components/LoginButtons/GoogleLogin';
+import OktaWidget from 'components/LoginButtons/OktaWidget';
 import RedirectLogin from 'components/LoginButtons/RedirectLogin';
 import { allRedirectUris } from 'common/injectGlobals';
+import ajax from 'services/ajax';
 
 import Aux from 'components/Aux';
 
@@ -27,7 +29,7 @@ const styles = {
   },
   logo: {
     marginLeft: 0,
-    width: '20%',
+    width: '10%',
   },
   loginIcon: {
     width: 20,
@@ -39,6 +41,11 @@ const styles = {
 
 const enhance = compose(injectState);
 
+const oktaLogin = token =>
+  ajax.get(`/oauth/okta/token`, {
+    headers: { token },
+  });
+
 class Component extends React.Component<any, any> {
   static propTypes = {
     effects: PropTypes.object,
@@ -49,6 +56,10 @@ class Component extends React.Component<any, any> {
   };
   onGoogleLogin = async token => {
     const response = await googleLogin(token);
+    this.handleLoginResponse(response);
+  };
+  onOktaLogin = async token => {
+    const response = await oktaLogin(token);
     this.handleLoginResponse(response);
   };
   handleFacebookToken = async token => {
@@ -95,6 +106,7 @@ class Component extends React.Component<any, any> {
           <Aux>
             <GoogleLogin onLogin={this.onGoogleLogin} />
             <FacebookLogin onLogin={this.onFacebookLogin} />
+            <OktaWidget onLogin={this.onOktaLogin} />
           </Aux>
         ) : (
           <RedirectLogin onLogin={({ token }) => this.handleJWT(token)} />

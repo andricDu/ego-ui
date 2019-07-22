@@ -12,6 +12,8 @@ export const apiRoot = process.env.REACT_APP_API;
 export const useDummyData = process.env.REACT_APP_DUMMY;
 export const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
 export const googleAppId = process.env.REACT_APP_GOOGLE_APP_ID;
+export const oktaUrl = process.env.REACT_APP_OKTA_URL;
+export const oktaId = process.env.REACT_APP_OKTA_ID;
 
 export const defaultRedirectUri = process.env.REACT_APP_DEFAULT_REDIRECT_URI || '';
 export const allRedirectUris = (process.env.REACT_APP_LOGIN_REDIRECT_NOT_REQUIRED || '')
